@@ -1,0 +1,32 @@
+---
+# tasks file for gotty-binary
+- name: Remove files.
+  file:
+    state: absent
+    path: "/tmp/{{item}}"
+  with_items:
+  - "gotty_{{gotty_type}}.tar.gz"
+  - gotty
+- name: Download the package.
+  get_url:
+    url: "https://github.com/yudai/gotty/releases/download/{{gotty_version}}/gotty_{{gotty_type}}.tar.gz"
+    dest: /tmp
+    mode: 0777
+- name: Unzip the package.
+  command: "tar xvzf /tmp/gotty_{{gotty_type}}.tar.gz -C /tmp"
+- name: Install gotty
+  copy:
+    src: /tmp/gotty
+    dest: "{{gotty_install_dir}}"
+    remote_src: yes
+    mode: "{{gotty_mode}}"
+    owner: "{{gotty_owner}}"
+    group: "{{gotty_group}}"
+  become: "{{gotty_become}}"
+- name: Remove files.
+  file:
+    state: absent
+    path: "/tmp/{{item}}"
+  with_items:
+  - "gotty_{{gotty_type}}.tar.gz"
+  - gotty

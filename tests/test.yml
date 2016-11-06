@@ -1,0 +1,11 @@
+---
+- hosts: default
+  roles:
+  - role: ansible-gotty-binary
+  tasks:
+  - name: gotty -v
+    command: gotty -v
+    register: result
+    changed_when: false
+  - debug:
+      var: result.stdout

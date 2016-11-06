@@ -1,0 +1,9 @@
+---
+# defaults file for gotty-binary
+gotty_version: v0.0.13
+gotty_type: linux_amd64
+gotty_install_dir: /usr/local/bin
+gotty_become: yes
+gotty_owner: root
+gotty_group: root
+gotty_mode: 0755
